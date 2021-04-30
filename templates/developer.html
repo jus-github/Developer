@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+</head>
+
+
+<body>
+
+  {% include "index.html" %}
+<div class="container stu mt-5"></div>
+
+{% if messages %}
+
+{% for message in messages%}
+
+<div class="alert alert-success text-center"> {{ message }}</div>
+
+{% endfor %}
+{% endif %}
+<div class="row">
+<div class="col sm-4 text-center py-5">
+
+
+<div class="alert alert-info text-center">  Add Developer Data </div>
+
+<form method ="POST" nonvalidate> {% csrf_token %}
+
+{% for form in fm %}
+
+<span class="text-danger">{{ form.errors }}</span> <br>
+<label> {{form.label }}</label> {{form}}  <br>
+    {% endfor %}
+    <br>
+    <button class="btn btn-success btn-block " name = "submit">Submit </button>
+</form>
+</div>
+<div class="col sm-8 p-5">
+
+<div class="alert alert-info text-center"> Update / Delete Developer Data </div>
+
+<table class="table">
+<thead>
+<td> s.no </td>
+<td> name </td>
+<td> email </td>
+
+<td> location </td>
+<td> update/delete </td>
+</thead>
+
+{% for data in devdata %}
+
+
+<tr>
+<td> {{data.id}} </td>
+
+<td> {{data.name}} </td>
+<td> {{data.email}} </td>
+<td> {{data.location}} </td>
+<td> <div class="d-flex">
+<a href ="/{{data.id}}/" class = btn btn-success btn-sm mx-2>EDIT </a>
+<form method="POST">
+{% csrf_token %}
+<input type="hidden" value="{{data.id}}" name="id">
+<button class="btn btn-sm btn-danger" name = "delete"> Delete </button></td></form>
+</div></tr> {% endfor %}
+</table>
+</div>
+</div>
+</body>
+
+</html>

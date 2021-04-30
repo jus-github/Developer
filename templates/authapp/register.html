@@ -1,0 +1,27 @@
+{% comment %} {% extends "base.html" %}
+ {% endcomment %}
+
+  
+  {% include "index.html" %} 
+  
+{% load bootstrap4 %}
+{% block title %}
+<center>
+<b>Registration </b>
+</center>
+{% endblock title %}
+{% block content %}
+
+{% if form.errors %}
+
+{% endif %}
+<br>
+<form action="" method="post" class="form container">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    {% endbuttons %}
+</form>
+{% endblock content %}
